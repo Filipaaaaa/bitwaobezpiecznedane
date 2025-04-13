@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strona główna</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+        }
+        .menu {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .menu li {
+            display: inline;
+            margin-right: 20px;
+        }
+        .menu a {
+            text-decoration: none;
+            color: white;
+        }
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Witaj, Strażniku Sieci!</h1>
+        <nav class="menu">
+            <li><a href="#start">Start</a></li>
+            <li><a href="#quiz">Quiz</a></li>
+            <li><a href="#game">Gra</a></li>
+            <li><a href="#achievements">Osiągnięcia</a></li>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <section id="start" class="screen active">
+            <h2>Witaj, Strażniku Sieci!</h2>
+            <p>Twoim zadaniem jest obrona danych przed cyberzagrożeniami. Wybierz poziom trudności:</p>
+            <div class="difficulty-buttons">
+                <button class="btn difficulty-btn" data-level="easy">Podstawowy</button>
+                <button class="btn difficulty-btn" data-level="medium">Średniozaawansowany</button>
+                <button class="btn difficulty-btn" data-level="hard">Zaawansowany</button>
+            </div>
+            <button id="instructions-btn" class="secondary-btn">Instrukcja</button>
+            <button id="achievements-btn" class="secondary-btn">Osiągnięcia</button>
+        </section>
+
+        <!-- Instrukcja -->
+        <section id="instructions-screen">
+            <h2>Jak grać?</h2>
+            <div class="instruction-point">
+                <i class="fas fa-shield-alt"></i>
+                <p>Chroń swoje dane przed cyberatakami</p>
+            </div>
+            <div class="instruction-point">
+                <i class="fas fa-question-circle"></i>
+                <p>Odpowiadaj na pytania quizowe</p>
+            </div>
+            <div class="instruction-point">
+                <i class="fas fa-gamepad"></i>
+                <p>Rozwiązuj interaktywne minigry</p>
+            </div>
+            <div class="instruction-point">
+                <i class="fas fa-trophy"></i>
+                <p>Zdobywaj osiągnięcia</p>
+            </div>
+            <button id="back-to-start" class="btn">Powrót</button>
+        </section>
+
+        <!-- Quiz -->
+        <section id="quiz-screen">
+            <h2>Pytanie będzie tutaj</h2>
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+            <div class="quiz-options">
+                <!-- Opcje odpowiedzi będą wstawiane dynamicznie -->
+            </div>
+            <div class="quiz-feedback"></div>
+        </section>
+
+        <!-- Minigra: Labirynt Firewalla -->
+        <section id="firewall-maze-screen" class="screen">
+            <div class="minigame-header">
+                <h2>Labirynt Firewalla</h2>
+                <p>Omijaj złośliwe pakiety i dotrzyj do serwera!</p>
+                <div class="timer">00:30</div>
+            </div>
+            <div class="maze-container">
+                <canvas id="maze-canvas" width="600" height="400"></canvas>
+            </div>
+        </section>
+
+        <!-- Inna minigra: Wykrywanie Phishingu -->
+        <section id="phishing-screen" class="screen">
+            <div class="minigame-header">
+                <h2>Wykrywanie Phishingu</h2>
+                <p>Zdecyduj, czy ten email jest bezpieczny</p>
+            </div>
+            <div class="email-container">
+                <!-- Email będzie generowany dynamicznie -->
+            </div>
+            <div class="phishing-buttons">
+                <button class="btn phishing-btn" data-choice="safe">Bezpieczny</button>
+                <button class="btn phishing-btn" data-choice="phishing">Phishing</button>
+            </div>
+            <div class="phishing-feedback"></div>
+        </section>
+
+        <!-- Generator hasła -->
+        <section id="password-generator-screen" class="screen">
+            <div class="minigame-header">
+                <h2>Generator Haseł</h2>
+                <p>Stwórz hasło spełniające wymagania</p>
+            </div>
+            <div class="password-generator">
+                <div class="password-display"></div>
+                <button id="generate-password-btn" class="btn">Wygeneruj nowe hasło</button>
+                <div class="requirements-list">
+                    <!-- Wymagania będą generowane dynamicznie -->
+                </div>
+                <div class="password-check">
+                    <input type="text" id="password-input" placeholder="Wprowadź hasło...">
+                    <button id="check-password-btn" class="btn">Sprawdź</button>
+                </div>
+                <div class="password-feedback"></div>
+            </div>
+        </section>
+
+        <!-- Końiec gry -->
+        <section id="game-over-screen" class="screen">
+            <div class="game-over-content">
+                <h2>Game Over</h2>
+                <div class="result-container">
+                    <p>Twój wynik: <span id="final-score">0</span> punktów</p>
+                    <p>Osiągnięty poziom: <span id="final-level">1</span></p>
+                    <p>Czas gry: <span id="final-time">0</span> sekund</p>
+                </div>
+                <button id="play-again-btn" class="btn">Zagraj ponownie</button>
+            </div>
+        </section>
+
+        <!-- Osiągnięcia -->
+        <section id="achievements-screen" class="screen">
+            <h2>Twoje Osiągnięcia</h2>
+            <div class="achievements-list"></div>
+            <button id="back-to-menu-btn" class="btn">Powrót do menu</button>
+        </section>
+    </div>
+
+    <!-- Modale -->
+    <div id="privacy-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Polityka Prywatności</h3>
+            <p>Ta gra nie zbiera żadnych danych osobowych. Wszystkie wyniki są przechowywane lokalnie w Twojej przeglądarce.</p>
+        </div>
+    </div>
+
+    <div id="about-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>O projekcie</h3>
+            <p>"Bitwa o Bezpieczne Dane" to gra edukacyjna stworzona w celu podniesienia świadomości na temat cyberbezpieczeństwa.</p>
+            <p>Projekt powstał w ramach inicjatywy edukacyjnej.</p>
+        </div>
+    </div>
+
+    <!-- Skrypty JavaScript -->
+    <script src="js/game-data.js"></script>
+    <script src="js/quiz-engine.js"></script>
+    <script src="js/achievement-system.js"></script>
+    <script src="js/minigames/firewall-maze.js"></script>
+    <script src="js/minigames/phishing-detector.js"></script>
+    <script src="js/minigames/password-generator.js"></script>
+    <script src="js/game-manager.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

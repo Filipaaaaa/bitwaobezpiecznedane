@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitwa o Bezpieczne Dane | Gra Edukacyjna</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/achievements.css">
+    <link rel="stylesheet" href="css/minigames.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Nagłówek gry -->
+        <header class="game-header">
+            <div class="logo-container">
+                <img src="assets/images/logo.png" alt="Bitwa o Bezpieczne Dane" class="logo">
+                <h1>BITWA O BEZPIECZNE DANE</h1>
+            </div>
+            <div class="player-stats">
+                <div class="stat" id="health">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>100%</span>
+                </div>
+                <div class="stat" id="level">
+                    <i class="fas fa-level-up-alt"></i>
+                    <span>Poziom 1</span>
+                </div>
+                <div class="stat" id="score">
+                    <i class="fas fa-star"></i>
+                    <span>0</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Główne ekrany gry -->
+        <main class="game-container">
+            <!-- Ekran startowy -->
+            <section id="start-screen" class="screen active">
+                <div class="start-content">
+                    <h2>Witaj, Strażniku Sieci!</h2>
+                    <p>Twoim zadaniem jest obrona danych przed cyberzagrożeniami. Wybierz poziom trudności:</p>
+                    <div class="difficulty-buttons">
+                        <button class="btn difficulty-btn" data-level="easy">Podstawowy</button>
+                        <button class="btn difficulty-btn" data-level="medium">Średniozaawansowany</button>
+                        <button class="btn difficulty-btn" data-level="hard">Zaawansowany</button>
+                    </div>
+                    <button id="instructions-btn" class="btn secondary-btn">Instrukcja</button>
+                    <button id="achievements-btn" class="btn secondary-btn">Osiągnięcia</button>
+                </div>
+            </section>
+
+            <!-- Ekran instrukcji -->
+            <section id="instructions-screen" class="screen">
+                <div class="instructions-content">
+                    <h2>Jak grać?</h2>
+                    <div class="instruction-point">
+                        <i class="fas fa-shield-alt"></i>
+                        <p>Chroń swoje dane przed cyberatakami</p>
+                    </div>
+                    <div class="instruction-point">
+                        <i class="fas fa-question-circle"></i>
+                        <p>Odpowiadaj na pytania quizowe</p>
+                    </div>
+                    <div class="instruction-point">
+                        <i class="fas fa-gamepad"></i>
+                        <p>Rozwiązuj interaktywne minigry</p>
+                    </div>
+                    <div class="instruction-point">
+                        <i class="fas fa-trophy"></i>
+                        <p>Zdobywaj osiągnięcia</p>
+                    </div>
+                    <button id="back-to-start" class="btn">Powrót</button>
+                </div>
+            </section>
+
+            <!-- Ekran quizu -->
+            <section id="quiz-screen" class="screen">
+                <div class="quiz-header">
+                    <h2 id="quiz-question">Pytanie będzie tutaj</h2>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="quiz-progress"></div>
+                    </div>
+                </div>
+                <div class="quiz-options" id="quiz-options">
+                    <!-- Opcje odpowiedzi będą wstawiane dynamicznie -->
+                </div>
+                <div class="quiz-feedback" id="quiz-feedback"></div>
+            </section>
+
+            <!-- Ekran minigry (Firewall Maze) -->
+            <section id="firewall-maze-screen" class="screen">
+                <div class="minigame-header">
+                    <h2>Labirynt Firewalla</h2>
+                    <p>Omijaj złośliwe pakiety i dotrzyj do serwera!</p>
+                    <div class="timer" id="maze-timer">00:30</div>
+                </div>
+                <div class="maze-container">
+                    <canvas id="maze-canvas" width="600" height="400"></canvas>
+                </div>
+            </section>
+
+            <!-- Ekran minigry (Phishing Detection) -->
+            <section id="phishing-screen" class="screen">
+                <div class="minigame-header">
+                    <h2>Wykrywanie Phishingu</h2>
+                    <p>Zdecyduj, czy ten email jest bezpieczny</p>
+                </div>
+                <div class="email-container" id="email-container">
+                    <!-- Email będzie generowany dynamicznie -->
+                </div>
+                <div class="phishing-buttons">
+                    <button class="btn phishing-btn" data-choice="safe">Bezpieczny</button>
+                    <button class="btn phishing-btn" data-choice="phishing">Phishing</button>
+                </div>
+                <div class="phishing-feedback" id="phishing-feedback"></div>
+            </section>
+
+            <!-- Ekran minigry (Password Generator) -->
+            <section id="password-generator-screen" class="screen">
+                <div class="minigame-header">
+                    <h2>Generator Haseł</h2>
+                    <p>Stwórz hasło spełniające wymagania</p>
+                </div>
+                <div class="password-generator">
+                    <div class="password-display" id="password-display"></div>
+                    <button id="generate-password-btn" class="btn">Wygeneruj nowe hasło</button>
+                    <div class="requirements-list" id="requirements-list">
+                        <!-- Wymagania będą generowane dynamicznie -->
+                    </div>
+                    <div class="password-check">
+                        <input type="text" id="password-input" placeholder="Wprowadź hasło...">
+                        <button id="check-password-btn" class="btn">Sprawdź</button>
+                    </div>
+                    <div class="password-feedback" id="password-feedback"></div>
+                </div>
+            </section>
+
+            <!-- Ekran końca gry -->
+            <section id="game-over-screen" class="screen">
+                <div class="game-over-content">
+                    <h2 id="game-over-title">Game Over</h2>
+                    <div class="result-container">
+                        <p>Twój wynik: <span id="final-score">0</span> punktów</p>
+                        <p>Osiągnięty poziom: <span id="final-level">1</span></p>
+                        <p>Czas gry: <span id="final-time">0</span> sekund</p>
+                    </div>
+                    <button id="play-again-btn" class="btn">Zagraj ponownie</button>
+                </div>
+            </section>
+
+            <!-- Ekran osiągnięć -->
+            <section id="achievements-screen" class="screen">
+                <div class="achievements-content">
+                    <h2>Twoje Osiągnięcia</h2>
+                    <div class="achievements-list" id="achievements-list">
+                        <!-- Osiągnięcia będą ładowane dynamicznie -->
+                    </div>
+                    <button id="back-to-menu-btn" class="btn">Powrót do menu</button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Stopka gry -->
+        <footer class="game-footer">
+            <p>© 2023 Bitwa o Bezpieczne Dane | Gra edukacyjna o cyberbezpieczeństwie</p>
+            <div class="footer-links">
+                <a href="#" id="privacy-link">Polityka prywatności</a>
+                <a href="#" id="about-link">O projekcie</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modale -->
+    <div id="privacy-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>Polityka Prywatności</h3>
+            <p>Ta gra nie zbiera żadnych danych osobowych. Wszystkie wyniki są przechowywane lokalnie w Twojej przeglądarce.</p>
+        </div>
+    </div>
+
+    <div id="about-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3>O projekcie</h3>
+            <p>"Bitwa o Bezpieczne Dane" to gra edukacyjna stworzona w celu podniesienia świadomości na temat cyberbezpieczeństwa.</p>
+            <p>Projekt powstał w ramach inicjatywy edukacyjnej.</p>
+        </div>
+    </div>
+
+    <!-- Skrypty JavaScript -->
+    <script src="js/game-data.js" type="module"></script>
+    <script src="js/quiz-engine.js" type="module"></script>
+    <script src="js/achievement-system.js" type="module"></script>
+    <script src="js/minigames/firewall-maze.js" type="module"></script>
+    <script src="js/minigames/phishing-detector.js" type="module"></script>
+    <script src="js/minigames/password-generator.js" type="module"></script>
+    <script src="js/game-manager.js" type="module"></script>
+    <script src="js/main.js" type="module"></script>
+</body>
+</html>
